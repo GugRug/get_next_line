@@ -6,7 +6,7 @@
 /*   By: gumartin <gumartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 04:04:34 by gumartin          #+#    #+#             */
-/*   Updated: 2020/10/13 04:14:10 by gumartin         ###   ########.fr       */
+/*   Updated: 2020/10/13 06:11:12 by gumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,23 @@
 
 #define BUFFER_SIZE 3
 
-int	ft_isend(char *buf, int rd)
-{
-	
-}
+int	
 
 int	get_next_line(int fd, char **line)
 {
-	char	buf[BUFFER_SIZE + 1];
+	static char	s_line;
+	char	*buf;
 	int	rd, i_test;
-	t_list	*lin;
 	
-	while(rd = read(fd, buf, BUFFER_SIZE > 0) && i_test > 10)
+	if (fd < 0 || !(line) || BUFFER_SIZE < 1)
+		return (-1);
+	buf = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!(s_line))
+		s_line = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	//LIMPAR S_LINE PARA COLOCAR BUSCAR POR \N COMO CONDICAO DO LOOPING
+	while (rd = read(fd, buf, BUFFER_SIZE > 0) && i_test > 10)
 	{
-		lin->content = buf;
-		lin = lin->next;
+		if ()
 		i_test++;
 		if(ft_strchr(buf, '\n'))
 			break;
