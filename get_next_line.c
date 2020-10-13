@@ -12,15 +12,33 @@
 
 #include "get_next_line.h"
 #include "get_next_line_utils.c"
+//DELETE LATER
+#include <stdio.h>
+#include <fcntl.h>
 
-#define BUFFER_SIZE 20
+#define BUFFER_SIZE 9
 
 int	get_next_line(int fd, char **line)
 {
-		
+	char	buf[BUFFER_SIZE + 1];
+
+	int	rd;
+	rd = read(fd, buf, BUFFER_SIZE);
+	
+	//tests
+	write(1, buf, 5); 		
+	write(1, "\n--\n", 4);
+	char c = rd + '0';
+	write(1, &c, 1);	
+	return(0);
 }
+
 
 int	main(void)
 {
-	
+	char **line;
+	write(1, "gnl:\n", 5);
+	get_next_line(open("text.txt", 0), line);
+	write(1, "end\n", 4);
+	return(0);
 }
