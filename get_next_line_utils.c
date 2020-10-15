@@ -10,7 +10,6 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*join;
@@ -60,4 +59,16 @@ char	*ft_strchr(const char *s, int c)
 	if (*s == c)
 		return ((char*)s);
 	return (NULL);
+}
+
+void	ft_strclean(void *s, size_t n)
+{
+		unsigned char	*ptr;
+
+		ptr = (unsigned char*)s;
+		while (n-- > 0)
+		{
+			*ptr = '\0';
+			ptr++;
+		}
 }

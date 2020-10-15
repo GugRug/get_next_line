@@ -6,7 +6,7 @@
 /*   By: gumartin <gumartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 04:04:34 by gumartin          #+#    #+#             */
-/*   Updated: 2020/10/15 03:30:23 by gumartin         ###   ########.fr       */
+/*   Updated: 2020/10/15 04:49:04 by gumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	get_next_line(int fd, char **line)
 	if (fd < 0 || !(line) || BUFFER_SIZE < 1)
 		return (-1);
 	buf = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));								//malloc buf 1
+	ft_strclean(buf, ft_strlen(buf));
 	if (!(s_line))
-		s_line = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));						//malloc s_line 2 - no free
-	//LIMPAR S_LINE PARA COLOCAR BUSCAR POR \N COMO CONDICAO DO LOOPING
+		s_line = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));						//malloc s_line 2
 	while (rd = read(fd, buf, BUFFER_SIZE > 0) && !(ft_strchr(s_line, '\n')) && i_test > 10)
 	{
 		ft_putbuf(buf, s_line);
@@ -37,8 +37,6 @@ int	get_next_line(int fd, char **line)
 	}
 	
 	free(buf);																			//buf free 1	
-		
-	
 	//tests
 	// char c = rd + '0';
 	// write(1, &c, 1);	
@@ -65,6 +63,20 @@ void ft_putbuf(char *buf, char **s_line)
 void ft_puts_line(char *s_line, char **line)
 {
 	//put s_line in line, than free s_line pointing to '\n'
+	int	i;
+	int	pbn;
+	
+	i = 0;
+	pbn = ft_strlen(s_line);
+	if (ft_strchr(s_line, '\n'))
+		pbn = ft_strchr(s_line, '\n') - s_line;	
+	ft_strlcpy(line, s_line, pbn + 1);
+	while (i < pbn)
+	{
+		s_line++;
+		i++;
+	}
+	free(s_line);												//s_line free 2
 }
 
 
