@@ -6,7 +6,7 @@
 /*   By: gumartin <gumartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 04:04:34 by gumartin          #+#    #+#             */
-/*   Updated: 2020/10/15 04:49:04 by gumartin         ###   ########.fr       */
+/*   Updated: 2020/10/15 05:12:17 by gumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ int	get_next_line(int fd, char **line)
 	buf = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));								//malloc buf 1
 	ft_strclean(buf, ft_strlen(buf));
 	if (!(s_line))
-		s_line = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));						//malloc s_line 2
+		s_line = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char*));						//malloc s_line 2
 	while (rd = read(fd, buf, BUFFER_SIZE > 0) && !(ft_strchr(s_line, '\n')) && i_test > 10)
 	{
 		ft_putbuf(buf, s_line);
-		if ()
 		i_test++;
 		if(ft_strchr(s_line, '\n'))
 			break;
 	}
-	
-	free(buf);																			//buf free 1	
+	ft_puts_line(s_line, line);
+	free(buf);													//buf free 1	
+	free(s_line);												//s_line free 2
 	//tests
 	// char c = rd + '0';
 	// write(1, &c, 1);	
@@ -44,7 +44,7 @@ int	get_next_line(int fd, char **line)
 	return(0);
 }
 
-void ft_putbuf(char *buf, char **s_line)
+void ft_putbuf(char *buf, char *s_line)
 {
 	char *bn;
 	char *cpy;
@@ -70,13 +70,12 @@ void ft_puts_line(char *s_line, char **line)
 	pbn = ft_strlen(s_line);
 	if (ft_strchr(s_line, '\n'))
 		pbn = ft_strchr(s_line, '\n') - s_line;	
-	ft_strlcpy(line, s_line, pbn + 1);
+	ft_strlcpy(*line, s_line, pbn + 1);
 	while (i < pbn)
 	{
 		s_line++;
 		i++;
 	}
-	free(s_line);												//s_line free 2
 }
 
 
