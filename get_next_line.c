@@ -6,7 +6,7 @@
 /*   By: gumartin <gumartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 04:04:34 by gumartin          #+#    #+#             */
-/*   Updated: 2020/10/15 02:02:29 by gumartin         ###   ########.fr       */
+/*   Updated: 2020/10/15 03:30:23 by gumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	get_next_line(int fd, char **line)
 	
 	if (fd < 0 || !(line) || BUFFER_SIZE < 1)
 		return (-1);
-	buf = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));								//malloc buf 1 -no free
+	buf = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));								//malloc buf 1
 	if (!(s_line))
 		s_line = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));						//malloc s_line 2 - no free
 	//LIMPAR S_LINE PARA COLOCAR BUSCAR POR \N COMO CONDICAO DO LOOPING
@@ -32,9 +32,11 @@ int	get_next_line(int fd, char **line)
 		ft_putbuf(buf, s_line);
 		if ()
 		i_test++;
-		if(ft_strchr(buf, '\n'))
+		if(ft_strchr(s_line, '\n'))
 			break;
 	}
+	
+	free(buf);																			//buf free 1	
 		
 	
 	//tests
@@ -54,12 +56,16 @@ void ft_putbuf(char *buf, char **s_line)
 		p = buf - bn;
 	else
 		p = ft_strlen(buf);
-	cpy = (char*)malloc(p * sizeof(char*));						//malloc cpy 3
+	cpy = (char*)malloc((p + 1)* sizeof(char*));				//malloc cpy 3
 	ft_strlcpy(cpy, buf, p);
 	s_line = ft_strjoin(s_line, cpy);
 	free(cpy);													//cpy free 3
 }
 
+void ft_puts_line(char *s_line, char **line)
+{
+	//put s_line in line, than free s_line pointing to '\n'
+}
 
 
 /*
