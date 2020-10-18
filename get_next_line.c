@@ -6,7 +6,7 @@
 /*   By: gumartin <gumartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 04:04:34 by gumartin          #+#    #+#             */
-/*   Updated: 2020/10/17 22:48:09 by gumartin         ###   ########.fr       */
+/*   Updated: 2020/10/17 23:00:09 by gumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int	get_next_line(int fd, char **line)
 		printf("O valor de s_line no GNL ao entrar e: %s \n", s_line);
 		ft_putbuf(buf, s_line);
 		printf("O valor de s_line no GNL ao Sair e: %s \n\n", s_line);
-		if(ft_strchr(s_line, '\n'))
-			break;
 	}
 	ft_puts_line(s_line, line);
 	free(buf);													//buf free 1	
