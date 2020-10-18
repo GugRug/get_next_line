@@ -20,7 +20,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	len = ft_strlen(s1) + ft_strlen(s2);
 	i = 0;
-	join = (char*)malloc(sizeof(char) * len + 1);
+	join = (char*)malloc(sizeof(char) * (len + 1));
 	if (join == NULL)
 		return (NULL);
 	while (*s1 != '\0' && i < len)
@@ -42,7 +42,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 		return (0);
 	while (src[j])
 		j++;
-	while (src[i] && i + 1 < size)
+	while (src[i] && i < size)
 	{
 		dest[i] = src[i];
 		i++;

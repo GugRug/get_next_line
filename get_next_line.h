@@ -10,8 +10,8 @@
 ** gnl
 */
 int	get_next_line(int fd, char **line);
-void	ft_putbuf(char *buf, char *s_line);
-void	ft_puts_line(char *s_line, char **line);
+void	ft_putbuf(char *buf, char **s_line);
+void	ft_puts_line(char **s_line, char **line);
 /*
 ** gnl Utils
 */
