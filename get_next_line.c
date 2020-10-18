@@ -6,7 +6,7 @@
 /*   By: gumartin <gumartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 04:04:34 by gumartin          #+#    #+#             */
-/*   Updated: 2020/10/18 19:34:11 by gumartin         ###   ########.fr       */
+/*   Updated: 2020/10/18 20:14:41 by gumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	get_next_line(int fd, char **line)
 	while ((ft_strchr(s_line, '\n') == NULL) && ((rd = read(fd, buf, BUFFER_SIZE)) > 0))
 	{
 		s_line = ft_strjoin(s_line, buf);
+		ft_strclean(buf, ft_strlen(buf));
 	}
 	s_line = ft_puts_line(s_line, line);
 	free(buf);
@@ -39,11 +40,6 @@ int	get_next_line(int fd, char **line)
 	if (rd >= 1)
 		return (1);
 	return (0);
-}
-
-void	ft_putbuf(char *buf, char **s_line)
-{
-	
 }
 
 char	*ft_puts_line(char *s_line, char **line)
@@ -57,8 +53,8 @@ char	*ft_puts_line(char *s_line, char **line)
 	if (ft_strchr(s_line, '\n'))
 		i = ft_strlen(ft_strchr(s_line, '\n'));
 	bn_c -= i;
-	*line = (char*)malloc((bn_c + 1) * sizeof(char*));
-	ft_strlcpy(*line, s_line, bn_c + 1);
+	*line = (char*)malloc((bn_c) * sizeof(char*));
+	ft_strlcpy(*line, s_line, bn_c);
 	temp = (char*)malloc((i + 1) * sizeof(char*));
 	if (i > 0)
 		ft_strlcpy(temp, &s_line[bn_c + 1], i + 1);
@@ -84,7 +80,7 @@ int	main(void)
 	while(line)
 	{
 		printf("-------\n");
-		printf("Line: %s\n", line);
+		printf("Line: %s\n Size: %ld\n", line, ft_strlen(line));
 		free(line);
 		write(1, "----\n", 5);
 		if (retorno <= 0)
