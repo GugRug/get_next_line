@@ -13,7 +13,7 @@
 NAME = get_next_line.a
 SRCS = main.c get_next_line.c get_next_line_utils.c
 OBJS = $(SRCS:.c=.o)
-FLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=5
+FLAGS = -g -Wall -Wextra -Werror -D BUFFER_SIZE=5
 LIB = get_next_line.h 
 	
 all:

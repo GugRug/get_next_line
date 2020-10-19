@@ -15,20 +15,22 @@
 int	get_next_line(int fd, char **line)
 {
 	static char	*s_line;
-	char	*buf;
-	int	rd;
+	char		*buf;
+	int		rd;
 	
 	//write(1,"--1--\n", 6);
 	if (fd < 0 || !(line) || BUFFER_SIZE < 1)
 		return(-1);
 	if (!(s_line))
 	{
-		s_line = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char*));
-		ft_strclean(s_line, BUFFER_SIZE + 1);
+		//s_line = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char*));
+		//ft_strclean(s_line, BUFFER_SIZE + 1);
+		s_line = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
 	}
-	buf = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char*));
-	ft_strclean(buf, BUFFER_SIZE + 1);
-	while ((ft_strchr(s_line, '\n') == NULL) && ((rd = read(fd, buf, BUFFER_SIZE)) > 0))
+	//buf = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char*));
+	buf = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
+	//ft_strclean(buf, BUFFER_SIZE + 1);
+	while ((((rd = read(fd, buf, BUFFER_SIZE)) > 0) && ft_strchr(s_line, '\n') == NULL))
 	{
 //		printf("O buffer e: %s", buf);
 //		write(1,"--2--\n", 6);
@@ -54,14 +56,14 @@ char	*ft_puts_line(char *s_line, char **line)
 	if (ft_strchr(s_line, '\n'))
 		i = ft_strlen(ft_strchr(s_line, '\n'));
 	bn_c -= i;
-	*line = (char*)malloc((bn_c) * sizeof(char*));
+	*line = (char*)ft_calloc((bn_c), sizeof(char*));
 	ft_strlcpy(*line, s_line, bn_c);
-	temp = (char*)malloc((i + 1) * sizeof(char*));
+	temp = (char*)ft_calloc((i + 1), sizeof(char*));
 	if (i > 0)
-		ft_strlcpy(temp, &s_line[bn_c + 1], i + 1);
+		ft_strlcpy(temp, &s_line[bn_c +1], i + 1);
 	else
 		temp = &(s_line[bn_c]);
 	free(s_line);
 	s_line = NULL;
-	return (temp);	
+	return (temp);
 }

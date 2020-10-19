@@ -73,20 +73,16 @@ void	ft_strclean(void *s, size_t n)
 		}
 }
 
-void	*calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
 	size_t	i;
-	char *p;
+	char	*p;
 
 	if (nmemb == 0 || size == 0)
 		return NULL;
-
 	p = malloc(nmemb * size);
-	bzero(p, nmemb * size);
-	while (i < nmemb * size)
-	{
+	i = -1;
+	while (++i < nmemb * size)
 		p[i] = '\0';
-		i++;
-	}
 	return (p);
 }

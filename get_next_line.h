@@ -20,4 +20,5 @@ char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 char	*ft_strchr(const char *s, int c);
 void	ft_strclean(void *s, size_t n);
+void	*ft_calloc(size_t nmemb, size_t size);
 #endif
