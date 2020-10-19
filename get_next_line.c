@@ -30,7 +30,7 @@ int	get_next_line(int fd, char **line)
 	//buf = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char*));
 	buf = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
 	//ft_strclean(buf, BUFFER_SIZE + 1);
-	while ((((rd = read(fd, buf, BUFFER_SIZE)) > 0) && ft_strchr(s_line, '\n') == NULL))
+	while (((ft_strchr(s_line, '\n') == NULL) && (rd = read(fd, buf, BUFFER_SIZE)) > 0))
 	{
 //		printf("O buffer e: %s", buf);
 //		write(1,"--2--\n", 6);
@@ -40,7 +40,7 @@ int	get_next_line(int fd, char **line)
 	s_line = ft_puts_line(s_line, line);
 	free(buf);
 	buf = NULL;
-	if (rd >= 1)
+	if (rd >= 1 || s_line)
 		return (1);
 	return (0);
 }
