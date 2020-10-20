@@ -6,7 +6,7 @@
 /*   By: gumartin <gumartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 10:00:06 by gumartin          #+#    #+#             */
-/*   Updated: 2020/10/20 10:00:07 by gumartin         ###   ########.fr       */
+/*   Updated: 2020/10/20 10:13:59 by gumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 
 	i = 0;
 	j = 0;
-
 	if (dest == 0 || src == 0 || dest == src)
 		return (0);
 	while (src[j])
@@ -86,19 +85,10 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	char	*p;
 
 	if (nmemb == 0 || size == 0)
-		return NULL;
+		return (NULL);
 	p = malloc(nmemb * size);
 	i = -1;
 	while (++i < nmemb * size)
 		p[i] = '\0';
 	return (p);
-}
-
-void	ft_strdel(char **s)
-{
-	if (s == 0)
-		return ;
-	if (*s)
-		free(*s);
-	*s = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: gumartin <gumartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 04:04:34 by gumartin          #+#    #+#             */
-/*   Updated: 2020/10/20 09:55:40 by gumartin         ###   ########.fr       */
+/*   Updated: 2020/10/20 10:12:05 by gumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_next_line(int fd, char **line)
 	int			r_fd;
 
 	if (fd < 0 || !(line) || BUFFER_SIZE < 1)
-		return(-1);
+		return (-1);
 	if (!s_line[fd])
 		s_line[fd] = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
 	if (ft_strchr_bn(s_line[fd]) == -1)
@@ -42,7 +42,8 @@ char	*ft_readbuf(int fd)
 
 	buffer_t = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
 	buffer = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
-	while ((ft_strchr_bn(buffer) == -1 ) && (r_fd = read(fd, buffer_t, BUFFER_SIZE)) > 0)
+	while ((ft_strchr_bn(buffer) == -1 )
+			&& (r_fd = read(fd, buffer_t, BUFFER_SIZE)) > 0)
 	{
 		buffer = ft_strjoin(buffer, buffer_t);
 		ft_strdel(&buffer_t);
@@ -78,4 +79,13 @@ char	*ft_justdoit(char *s_line[fd], char **line, int *r_fd)
 		*line = NULL;
 	ft_strdel(&s_line[fd]);
 	return (temp);
+}
+
+void	ft_strdel(char **s)
+{
+	if (s == 0)
+		return ;
+	if (*s)
+		free(*s);
+	*s = 0;
 }
