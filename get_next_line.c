@@ -6,13 +6,13 @@
 /*   By: gumartin <gumartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 04:04:34 by gumartin          #+#    #+#             */
-/*   Updated: 2020/10/20 11:14:34 by gumartin         ###   ########.fr       */
+/*   Updated: 2020/10/20 12:29:04 by gumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
 	static char	*s_line;
 	char		*buf;
@@ -28,7 +28,7 @@ int	get_next_line(int fd, char **line)
 		if (r_fd == -1)
 		{
 			ft_strdel(&buf);
-			return (-1);	
+			return (-1);
 		}
 		s_line = ft_strjoin(s_line, buf);
 		ft_strdel(&buf);
