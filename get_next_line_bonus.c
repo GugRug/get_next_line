@@ -6,7 +6,7 @@
 /*   By: gumartin <gumartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 04:04:34 by gumartin          #+#    #+#             */
-/*   Updated: 2020/10/20 08:55:35 by gumartin         ###   ########.fr       */
+/*   Updated: 2020/10/20 09:55:40 by gumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,17 @@ int	get_next_line(int fd, char **line)
 	char		*buf;
 	int			r_fd;
 
-	
 	if (fd < 0 || !(line) || BUFFER_SIZE < 1)
 		return(-1);
 	if (!s_line[fd])
 		s_line[fd] = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
-	if(ft_strchr_bn(s_line[fd]) == -1)
+	if (ft_strchr_bn(s_line[fd]) == -1)
 	{
-		buf = ft_readbuf(fd); // return line
+		buf = ft_readbuf(fd);
 		s_line[fd] = ft_strjoin(s_line[fd], buf);
 		ft_strdel(&buf);
 	}
-	s_line[fd] = ft_justdoit(s_line[fd], line, &r_fd); // put in line, put rest in s_line[fd]
+	s_line[fd] = ft_justdoit(s_line[fd], line, &r_fd);
 	if (r_fd == -2)
 		return (0);
 	return (1);
@@ -40,10 +39,10 @@ char	*ft_readbuf(int fd)
 	char	*buffer;
 	char	*buffer_t;
 	int		r_fd;
-	
+
 	buffer_t = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
 	buffer = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
-	while((ft_strchr_bn(buffer) == -1 )&& (r_fd = read(fd, buffer_t, BUFFER_SIZE)) > 0)
+	while ((ft_strchr_bn(buffer) == -1 ) && (r_fd = read(fd, buffer_t, BUFFER_SIZE)) > 0)
 	{
 		buffer = ft_strjoin(buffer, buffer_t);
 		ft_strdel(&buffer_t);
@@ -58,8 +57,8 @@ char	*ft_justdoit(char *s_line[fd], char **line, int *r_fd)
 	char	*temp;
 	int		bn;
 	int		len;
-		
-	temp = NULL;	
+
+	temp = NULL;
 	bn = ft_strchr_bn(s_line[fd]);
 	len = ft_strlen(s_line[fd]);
 	if (bn >= 0)
