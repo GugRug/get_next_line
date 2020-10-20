@@ -6,7 +6,7 @@
 /*   By: gumartin <gumartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 04:04:34 by gumartin          #+#    #+#             */
-/*   Updated: 2020/10/20 06:20:00 by gumartin         ###   ########.fr       */
+/*   Updated: 2020/10/20 08:09:27 by gumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	get_next_line(int fd, char **line)
 		s_line = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
 	if(ft_strchr_bn(s_line) == -1)
 	{
-		buf = ft_readbuf(fd, &r_fd); // return line
+		buf = ft_readbuf(fd); // return line
 		s_line = ft_strjoin(s_line, buf);
 		ft_strdel(&buf);
 	}
@@ -35,14 +35,15 @@ int	get_next_line(int fd, char **line)
 	return (1);
 }
 
-char	*ft_readbuf(int fd, int *r_fd)
+char	*ft_readbuf(int fd)
 {
 	char	*buffer;
 	char	*buffer_t;
+	int		r_fd;
 	
 	buffer_t = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
 	buffer = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
-	while((ft_strchr_bn(buffer) == -1 )&& (*r_fd = read(fd, buffer_t, BUFFER_SIZE)) > 0)
+	while((ft_strchr_bn(buffer) == -1 )&& (r_fd = read(fd, buffer_t, BUFFER_SIZE)) > 0)
 	{
 		buffer = ft_strjoin(buffer, buffer_t);
 		ft_strdel(&buffer_t);
@@ -70,7 +71,7 @@ char	*ft_justdoit(char *s_line, char **line, int *r_fd)
 	}
 	else if (s_line)
 	{
-		*line = (char*)ft_calloc((bn) + 2, sizeof(char*));
+		*line = (char*)ft_calloc((len) + 1, sizeof(char*));
 		ft_strlcpy(*line, s_line, len + 1);
 		*r_fd = -2;
 	}
@@ -79,69 +80,3 @@ char	*ft_justdoit(char *s_line, char **line, int *r_fd)
 	ft_strdel(&s_line);
 	return (temp);
 }
-/*
-
-int	get_next_line(int fd, char **line)
-{
-	static char	*s_line;
-	char		*buf;
-	int			rd;
-
-	if (fd < 0 || !(line) || BUFFER_SIZE < 1)
-		return(-1);
-	buf = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
-	rd = read(fd, buf, BUFFER_SIZE);
-	if (!(s_line))
-	{
-		if (rd == 0)
-		{
-			*line = (char*)ft_calloc(1, sizeof(char*));
-			**line = '\0';
-			free(buf);
-			return (0);
-		}
-		s_line = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
-	}
-	while (rd)
-	{
-		s_line = ft_strjoin(s_line, buf);
-		ft_strclean(buf, ft_strlen(buf));					//delete it
-		rd = read(fd, buf, BUFFER_SIZE);
-	}
-	free(buf);
-	buf = NULL;
-	s_line = ft_puts_line(s_line, line);
-	if (*s_line == '\0')
-	{
-		return (0);
-	}
-	return (1);
-}
-
-char	*ft_puts_line(char *s_line, char **line)
-{
-	char	*temp;
-	int	bn_c;
-	int	i;
-	
-	bn_c = ft_strlen(s_line);
-	i = 0;
-		
-	if (ft_strchr(s_line, '\n'))
-	{
-		i = ft_strlen(ft_strchr(s_line, '\n'));
-		bn_c -= i;
-		s_line[bn_c] = '\0';
-	}
-	*line = (char*)ft_calloc((bn_c + 1), sizeof(char*));
-	ft_strlcpy(*line, s_line, bn_c + 1);
-	temp = (char*)ft_calloc((i + 1), sizeof(char*));
-	if (i > 0)
-		ft_strlcpy(temp, &s_line[bn_c +1], i + 1);
-	else
-		temp = &(s_line[bn_c]);
-	free(s_line);
-	s_line = NULL;
-	return (temp);
-}
-*/
