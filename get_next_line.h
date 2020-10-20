@@ -11,7 +11,7 @@
 */
 int		get_next_line(int fd, char **line);
 char	*ft_readbuf(int fd, int *r_fd);
-char	*ft_justdoit(char *s_line, char **line);
+char	*ft_justdoit(char *s_line, char **line, int *r_fd);
 /*
 ** gnl Utils
 */

@@ -6,7 +6,7 @@
 /*   By: gumartin <gumartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 04:04:34 by gumartin          #+#    #+#             */
-/*   Updated: 2020/10/20 04:47:03 by gumartin         ###   ########.fr       */
+/*   Updated: 2020/10/20 06:20:00 by gumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,11 @@ int	get_next_line(int fd, char **line)
 	{
 		buf = ft_readbuf(fd, &r_fd); // return line
 		s_line = ft_strjoin(s_line, buf);
-		if (r_fd == -1)
-		{
-			ft_strdel(&buf);
-			return 0;				//maybe return too soon, check later if realy there isnt nothing in s_line
-		}
 		ft_strdel(&buf);
 	}
-	s_line = ft_justdoit(s_line, line); // put in line, put rest in s_line
+	s_line = ft_justdoit(s_line, line, &r_fd); // put in line, put rest in s_line
+	if (r_fd == -2)
+		return (0);
 	return (1);
 }
 
@@ -55,30 +52,30 @@ char	*ft_readbuf(int fd, int *r_fd)
 	return (buffer);
 }
 
-char	*ft_justdoit(char *s_line, char **line)
+char	*ft_justdoit(char *s_line, char **line, int *r_fd)
 {
 	char	*temp;
 	int		bn;
 	int		len;
 		
+	temp = NULL;	
 	bn = ft_strchr_bn(s_line);
 	len = ft_strlen(s_line);
 	if (bn >= 0)
 	{
-		temp = (char*)ft_calloc((len - bn) + 1, sizeof(char*));
-		*line = (char*)ft_calloc((bn) + 1, sizeof(char*));
+		temp = (char*)ft_calloc((len - bn), sizeof(char*));
+		*line = (char*)ft_calloc((bn) + 2, sizeof(char*));
 		ft_strlcpy(*line, s_line, bn);
 		ft_strlcpy(temp, &s_line[bn + 1], len - bn);
 	}
-	else
+	else if (s_line)
 	{
-		ft_strlcpy(*line, s_line, len);
-		if (*s_line == '\0')
-		{
-			*line = NULL;
-		}
-		temp = NULL;		
+		*line = (char*)ft_calloc((bn) + 2, sizeof(char*));
+		ft_strlcpy(*line, s_line, len + 1);
+		*r_fd = -2;
 	}
+	else
+		*line = NULL;
 	ft_strdel(&s_line);
 	return (temp);
 }
