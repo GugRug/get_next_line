@@ -6,7 +6,7 @@
 /*   By: gumartin <gumartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 04:04:34 by gumartin          #+#    #+#             */
-/*   Updated: 2020/10/19 00:07:29 by gumartin         ###   ########.fr       */
+/*   Updated: 2020/10/19 23:57:29 by gumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,36 @@ int	get_next_line(int fd, char **line)
 {
 	static char	*s_line;
 	char		*buf;
-	int		rd;
-	
-	//write(1,"--1--\n", 6);
+	int			rd;
+	int			pass;
+
+	pass = 1;
 	if (fd < 0 || !(line) || BUFFER_SIZE < 1)
 		return(-1);
+	buf = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
+	rd = read(fd, buf, BUFFER_SIZE);
 	if (!(s_line))
 	{
-		//s_line = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char*));
-		//ft_strclean(s_line, BUFFER_SIZE + 1);
+		if (rd == 0)
+		{
+			*line = (char*)ft_calloc(1, sizeof(char*));
+			**line = '\0';
+			free(buf);
+			return (0);
+		}
 		s_line = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
 	}
-	//buf = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char*));
-	buf = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
-	//ft_strclean(buf, BUFFER_SIZE + 1);
-	while (((ft_strchr(s_line, '\n') == NULL) && (rd = read(fd, buf, BUFFER_SIZE)) > 0))
+	while (((pass == 1 || (rd = read(fd, buf, BUFFER_SIZE)))))
 	{
-//		printf("O buffer e: %s", buf);
-//		write(1,"--2--\n", 6);
+		write(1,"teste", 5);
 		s_line = ft_strjoin(s_line, buf);
-		ft_strclean(buf, ft_strlen(buf));
+		ft_strclean(buf, ft_strlen(buf));					//delete it
+		pass = 0;
 	}
-	s_line = ft_puts_line(s_line, line);
 	free(buf);
 	buf = NULL;
-	if (rd >= 1 || s_line)
+	s_line = ft_puts_line(s_line, line);
+	if (rd > 0 || ((ft_strlen(s_line) > 0) && **line == '\0'))
 		return (1);
 	return (0);
 }
@@ -54,10 +59,13 @@ char	*ft_puts_line(char *s_line, char **line)
 	bn_c = ft_strlen(s_line);
 	i = 0;
 	if (ft_strchr(s_line, '\n'))
+	{
 		i = ft_strlen(ft_strchr(s_line, '\n'));
-	bn_c -= i;
-	*line = (char*)ft_calloc((bn_c), sizeof(char*));
-	ft_strlcpy(*line, s_line, bn_c);
+		bn_c -= i;
+		s_line[bn_c] = '\0';
+	}
+	*line = (char*)ft_calloc((bn_c + 1), sizeof(char*));
+	ft_strlcpy(*line, s_line, bn_c + 1);
 	temp = (char*)ft_calloc((i + 1), sizeof(char*));
 	if (i > 0)
 		ft_strlcpy(temp, &s_line[bn_c +1], i + 1);

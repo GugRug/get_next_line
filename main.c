@@ -6,7 +6,7 @@
 /*   By: gumartin <gumartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 22:41:49 by hcastanh          #+#    #+#             */
-/*   Updated: 2020/10/19 00:07:50 by gumartin         ###   ########.fr       */
+/*   Updated: 2020/10/19 22:58:22 by gumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@ int main()
 
 	fd = open("./text.txt", O_RDONLY);
 	retorno = get_next_line(fd, &line);
-	printf("Buffer Size is:%d and fd is:%d\n",(int)BUFFER_SIZE, fd);
 
 	while(line)
 	{
-		printf("%s\n", line);
-		write(1,"-----\n", 6);
+		printf("%s", line);
+		printf("-----\n");
 		free(line);
 		if (retorno <= 0)
 			break;
