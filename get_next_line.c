@@ -6,7 +6,7 @@
 /*   By: gumartin <gumartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 04:04:34 by gumartin          #+#    #+#             */
-/*   Updated: 2020/10/19 23:57:29 by gumartin         ###   ########.fr       */
+/*   Updated: 2020/10/20 00:24:54 by gumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ int	get_next_line(int fd, char **line)
 	static char	*s_line;
 	char		*buf;
 	int			rd;
-	int			pass;
 
-	pass = 1;
 	if (fd < 0 || !(line) || BUFFER_SIZE < 1)
 		return(-1);
 	buf = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
@@ -35,19 +33,20 @@ int	get_next_line(int fd, char **line)
 		}
 		s_line = (char*)ft_calloc(BUFFER_SIZE + 1, sizeof(char*));
 	}
-	while (((pass == 1 || (rd = read(fd, buf, BUFFER_SIZE)))))
+	while (rd)
 	{
-		write(1,"teste", 5);
 		s_line = ft_strjoin(s_line, buf);
 		ft_strclean(buf, ft_strlen(buf));					//delete it
-		pass = 0;
+		rd = read(fd, buf, BUFFER_SIZE);
 	}
 	free(buf);
 	buf = NULL;
 	s_line = ft_puts_line(s_line, line);
-	if (rd > 0 || ((ft_strlen(s_line) > 0) && **line == '\0'))
-		return (1);
-	return (0);
+	if (*s_line == '\0')
+	{
+		return (0);
+	}
+	return (1);
 }
 
 char	*ft_puts_line(char *s_line, char **line)
@@ -58,6 +57,7 @@ char	*ft_puts_line(char *s_line, char **line)
 	
 	bn_c = ft_strlen(s_line);
 	i = 0;
+		
 	if (ft_strchr(s_line, '\n'))
 	{
 		i = ft_strlen(ft_strchr(s_line, '\n'));
