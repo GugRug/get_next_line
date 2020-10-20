@@ -4,21 +4,22 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <stdio.h> //teste, apagar
+//# include <stdio.h> //teste, apagar
 
 /*
 ** gnl
 */
-int	get_next_line(int fd, char **line);
-void	ft_putbuf(char *buf, char **s_line);
-char	*ft_puts_line(char *s_line, char **line);
+int		get_next_line(int fd, char **line);
+char	*ft_readbuf(int fd, int *r_fd);
+char	*ft_justdoit(char *s_line, char **line);
 /*
 ** gnl Utils
 */
 size_t	ft_strlen(const char *str);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-char	*ft_strchr(const char *s, int c);
+int		ft_strchr_bn(const char *s);
 void	ft_strclean(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
+void	ft_strdel(char **s);
 #endif

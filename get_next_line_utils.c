@@ -52,25 +52,16 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 	return (j);
 }
 
-char	*ft_strchr(const char *s, int c)
+int		ft_strchr_bn(const char *s)
 {
-	while (*s && *s != c)
-		s++;
-	if (*s == c)
-		return ((char*)s);
-	return (NULL);
-}
+	int i;
 
-void	ft_strclean(void *s, size_t n)
-{
-		unsigned char	*ptr;
-
-		ptr = (unsigned char*)s;
-		while (n-- > 0)
-		{
-			*ptr = '\0';
-			ptr++;
-		}
+	i = 0;
+	while (s[i] && s[i] != '\n')
+		i++;
+	if (s[i] == '\n')
+		return (i);
+	return (-1);
 }
 
 void	*ft_calloc(size_t nmemb, size_t size)
@@ -85,4 +76,13 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	while (++i < nmemb * size)
 		p[i] = '\0';
 	return (p);
+}
+
+void	ft_strdel(char **s)
+{
+	if (s == 0)
+		return ;
+	if (*s)
+		free(*s);
+	*s = 0;
 }
