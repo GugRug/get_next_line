@@ -1,9 +1,10 @@
-#ifndef GNL_H
-# define GNL_H
+#ifndef GNL_B_H
+# define GNL_B_H
 
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <limits.h>
 
 /*
 ** gnl
